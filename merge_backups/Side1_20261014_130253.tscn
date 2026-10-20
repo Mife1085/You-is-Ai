@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://b2shsl6rhp8r0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dhe01"]
+albedo_color = Color(0.3346312, 0.45841438, 0.20171395, 1)
+metallic = 0.4
+roughness = 0.0
+emission_enabled = true
+emission_energy_multiplier = 0.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_rp4ch"]
+material = SubResource("StandardMaterial3D_dhe01")
+size = Vector2(0.32, 0.32)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8eydk"]
+albedo_color = Color(0.24707186, 0.000695008, 0.55532414, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_3term"]
+material = SubResource("StandardMaterial3D_8eydk")
+size = Vector2(0.32, 0.32)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3p45u"]
+albedo_color = Color(0.6132527, 0.17705426, 0.4288899, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_kys1i"]
+material = SubResource("StandardMaterial3D_3p45u")
+size = Vector2(0.32, 0.32)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o7037"]
+albedo_color = Color(0.41213185, 0.38056225, 0.0864786, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_2it0d"]
+material = SubResource("StandardMaterial3D_o7037")
+size = Vector2(0.32, 0.32)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jh3ka"]
+albedo_color = Color(0.48242962, 0.2699692, 0.5604373, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_gnlro"]
+material = SubResource("StandardMaterial3D_jh3ka")
+size = Vector2(0.32, 0.32)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rushn"]
+albedo_color = Color(0.29893598, 0.5953455, 0.36478868, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_g2x6o"]
+material = SubResource("StandardMaterial3D_rushn")
+size = Vector2(0.32, 0.32)
+
+[node name="Side1_backup" type="Node3D" unique_id=1702772548]
+
+[node name="Side1" type="MeshInstance3D" parent="." unique_id=481468792]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.16)
+mesh = SubResource("QuadMesh_rp4ch")
+
+[node name="Side2" type="MeshInstance3D" parent="." unique_id=491784205]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -0.16)
+mesh = SubResource("QuadMesh_3term")
+
+[node name="Side3" type="MeshInstance3D" parent="." unique_id=575760994]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.16, 0, 0)
+mesh = SubResource("QuadMesh_kys1i")
+
+[node name="Side4" type="MeshInstance3D" parent="." unique_id=2124490703]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.16, 0, 0)
+mesh = SubResource("QuadMesh_2it0d")
+
+[node name="Side5" type="MeshInstance3D" parent="." unique_id=329803386]
+transform = Transform3D(-4.371139e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 1.9106855e-15, 0, 0.16, 0)
+mesh = SubResource("QuadMesh_gnlro")
+
+[node name="Side6" type="MeshInstance3D" parent="." unique_id=2101788785]
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 0, -0.16, 0)
+mesh = SubResource("QuadMesh_g2x6o")

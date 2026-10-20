@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://da4wf0yjh3vif"]
+
+[ext_resource type="Script" uid="uid://b7ji856emvaym" path="res://scenes/interact/Cubes/cube_logic.gd" id="1_xuowm"]
+[ext_resource type="ArrayMesh" uid="uid://dsfgw8jeewtm5" path="res://meshes/Stick1_20261016_121524.res" id="2_xuowm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xuowm"]
+transparency = 1
+shading_mode = 0
+disable_receive_shadows = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_apd6l"]
+material = SubResource("StandardMaterial3D_xuowm")
+size = Vector2(0.3, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ik8rx"]
+size = Vector3(0.41, 0.41, 0.41)
+
+[sub_resource type="Gradient" id="Gradient_4mwom"]
+colors = PackedColorArray(9.62615e-07, 0.27509883, 3.6098064e-07, 1, 0.49608022, 0.81090176, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ln2dc"]
+frequency = 1.0
+fractal_octaves = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0sflb"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_ln2dc")
+color_ramp = SubResource("Gradient_4mwom")
+seamless = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_j5wiu"]
+noise_type = 0
+seed = 21
+frequency = 0.5
+fractal_octaves = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_14wrs"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_j5wiu")
+seamless = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fp83u"]
+albedo_color = Color(0.32786474, 0.5471841, 1.1551381e-06, 1)
+albedo_texture = SubResource("NoiseTexture2D_0sflb")
+metallic = 0.1
+roughness = 0.45
+roughness_texture = SubResource("NoiseTexture2D_14wrs")
+uv1_scale = Vector3(4, 4, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bi538"]
+material = SubResource("StandardMaterial3D_fp83u")
+size = Vector3(0.31, 0.31, 0.31)
+
+[sub_resource type="ImageTexture" id="ImageTexture_brn24"]
+
+[sub_resource type="Gradient" id="Gradient_xuowm"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_efmhg"]
+gradient = SubResource("Gradient_xuowm")
+fill = 1
+fill_from = Vector2(0.7112403, 0.7267442)
+fill_to = Vector2(0.5755814, 0.60271317)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_apd6l"]
+albedo_texture = SubResource("GradientTexture2D_efmhg")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_brn24"]
+material = SubResource("StandardMaterial3D_apd6l")
+flip_faces = true
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.01
+cap_top = false
+
+[node name="CubeLogic" type="RigidBody3D" unique_id=709284282]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_xuowm")
+
+[node name="Venn" type="MeshInstance3D" parent="." unique_id=461761105]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.16)
+mesh = SubResource("QuadMesh_apd6l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1200286454 groups=["Cube"]]
+visible = false
+shape = SubResource("BoxShape3D_ik8rx")
+
+[node name="Sides" type="MeshInstance3D" parent="." unique_id=1251708946]
+mesh = SubResource("BoxMesh_bi538")
+
+[node name="Stick1_merged" type="MeshInstance3D" parent="." unique_id=1830498169]
+mesh = ExtResource("2_xuowm")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=224105546]
+visible = false
+texture = SubResource("ImageTexture_brn24")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1537031504]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0.16166675)
+visible = false
+mesh = SubResource("CylinderMesh_brn24")

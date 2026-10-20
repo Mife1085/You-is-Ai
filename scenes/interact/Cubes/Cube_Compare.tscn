@@ -1,0 +1,163 @@
+[gd_scene format=3 uid="uid://btm5b77mprk2t"]
+
+[ext_resource type="Script" uid="uid://buycunwi8t0u" path="res://scenes/interact/Cubes/cube_compare.gd" id="1_mmqnk"]
+[ext_resource type="Material" uid="uid://ne4n76ha77c3" path="res://resources/Materials/plastic_white.tres" id="2_3d7yb"]
+[ext_resource type="Material" uid="uid://bsd5btk54fv7y" path="res://resources/Materials/plastic_dark.tres" id="3_516p2"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_mmqnk"]
+material = ExtResource("2_3d7yb")
+size = Vector2(0.32, 0.32)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cd2ec"]
+material = ExtResource("3_516p2")
+size = Vector3(0.05, 0.4098381, 0.05)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3d7yb"]
+size = Vector3(0.41, 0.41, 0.41)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_apd6l"]
+top_radius = 0.007
+bottom_radius = 0.01
+height = 0.01
+
+[sub_resource type="BoxMesh" id="BoxMesh_apd6l"]
+material = ExtResource("2_3d7yb")
+size = Vector3(0.31, 0.31, 0.31)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3d7yb"]
+albedo_color = Color(0.16925067, 0.5154893, 0.517457, 1)
+roughness = 0.4
+grow_amount = 0.01
+
+[sub_resource type="BoxMesh" id="BoxMesh_516p2"]
+material = SubResource("StandardMaterial3D_3d7yb")
+size = Vector3(0.25, 0.02, 0.02)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cmce1"]
+albedo_color = Color(0.7238804, 0.12011581, 0.103640206, 1)
+roughness = 0.4
+grow_amount = 0.01
+
+[sub_resource type="BoxMesh" id="BoxMesh_brn24"]
+material = SubResource("StandardMaterial3D_cmce1")
+size = Vector3(0.25, 0.02, 0.02)
+
+[node name="Cube_Compare" type="RigidBody3D" unique_id=667768511]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_mmqnk")
+
+[node name="Side1" type="MeshInstance3D" parent="." unique_id=1878284239]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.16)
+visible = false
+mesh = SubResource("QuadMesh_mmqnk")
+
+[node name="Side2" type="MeshInstance3D" parent="." unique_id=2101428589]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -0.16)
+visible = false
+mesh = SubResource("QuadMesh_mmqnk")
+
+[node name="Side3" type="MeshInstance3D" parent="." unique_id=6610979]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.16, 0, 0)
+visible = false
+mesh = SubResource("QuadMesh_mmqnk")
+
+[node name="Side4" type="MeshInstance3D" parent="." unique_id=208129515]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.16, 0, 0)
+visible = false
+mesh = SubResource("QuadMesh_mmqnk")
+
+[node name="Side5" type="MeshInstance3D" parent="." unique_id=1564005093]
+transform = Transform3D(-4.371139e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 1.9106855e-15, 0, 0.16, 0)
+visible = false
+mesh = SubResource("QuadMesh_mmqnk")
+
+[node name="Side6" type="MeshInstance3D" parent="." unique_id=1845473235]
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 0, -0.16, 0)
+visible = false
+mesh = SubResource("QuadMesh_mmqnk")
+
+[node name="Stick1" type="MeshInstance3D" parent="." unique_id=862806319]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0, 0.18)
+mesh = SubResource("BoxMesh_cd2ec")
+
+[node name="Stick2" type="MeshInstance3D" parent="." unique_id=409169521]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0, 0.18)
+mesh = SubResource("BoxMesh_cd2ec")
+
+[node name="Stick3" type="MeshInstance3D" parent="." unique_id=2067240910]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0, -0.18)
+mesh = SubResource("BoxMesh_cd2ec")
+
+[node name="Stick4" type="MeshInstance3D" parent="." unique_id=298967416]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0, -0.18)
+mesh = SubResource("BoxMesh_cd2ec")
+
+[node name="Stick5" type="MeshInstance3D" parent="." unique_id=1696776607]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.0003208071, 0.18, 0.18)
+mesh = SubResource("BoxMesh_cd2ec")
+
+[node name="Stick6" type="MeshInstance3D" parent="." unique_id=490129249]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.00033276668, 0.18, -0.18)
+mesh = SubResource("BoxMesh_cd2ec")
+
+[node name="Stick7" type="MeshInstance3D" parent="." unique_id=180022611]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, -0.18, -0.18)
+mesh = SubResource("BoxMesh_cd2ec")
+
+[node name="Stick8" type="MeshInstance3D" parent="." unique_id=1147638385]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, -0.18, 0.18)
+mesh = SubResource("BoxMesh_cd2ec")
+
+[node name="Stick9" type="MeshInstance3D" parent="." unique_id=280779502]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, 0.18, 0.18, 0)
+mesh = SubResource("BoxMesh_cd2ec")
+
+[node name="Stick10" type="MeshInstance3D" parent="." unique_id=1735839335]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, 0.18, -0.18, 0)
+mesh = SubResource("BoxMesh_cd2ec")
+
+[node name="Stick11" type="MeshInstance3D" parent="." unique_id=215777613]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, -0.18, -0.18, 0)
+mesh = SubResource("BoxMesh_cd2ec")
+
+[node name="Stick12" type="MeshInstance3D" parent="." unique_id=497459825]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, -0.18, 0.18, 0)
+mesh = SubResource("BoxMesh_cd2ec")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=789166340 groups=["Cube"]]
+visible = false
+shape = SubResource("BoxShape3D_3d7yb")
+
+[node name="Pup1" type="MeshInstance3D" parent="." unique_id=1419683915]
+transform = Transform3D(0.70710677, -3.090862e-08, -0.70710677, -0.70710677, -3.090862e-08, -0.70710677, 0, 1, -4.371139e-08, -0.081634454, 0.08104616, 0.201)
+mesh = SubResource("CylinderMesh_apd6l")
+
+[node name="Pup2" type="MeshInstance3D" parent="." unique_id=1484492593]
+transform = Transform3D(0.99999994, 0, 0, 0, -4.371139e-08, -0.99999994, 0, 1, -4.3711385e-08, -0.081634454, -0.08094153, 0.201)
+mesh = SubResource("CylinderMesh_apd6l")
+
+[node name="Pup3" type="MeshInstance3D" parent="." unique_id=2010959845]
+transform = Transform3D(0.99999994, 0, 0, 0, -4.371139e-08, -0.99999994, 0, 1, -4.3711385e-08, 0.08, -0.081, 0.201)
+mesh = SubResource("CylinderMesh_apd6l")
+
+[node name="Pup4" type="MeshInstance3D" parent="." unique_id=1436482432]
+transform = Transform3D(0.99999994, 0, 0, 0, -4.371139e-08, -0.99999994, 0, 1, -4.3711385e-08, 0.08, 0.08, 0.201)
+mesh = SubResource("CylinderMesh_apd6l")
+
+[node name="Sides" type="MeshInstance3D" parent="." unique_id=93445125]
+mesh = SubResource("BoxMesh_apd6l")
+
+[node name="BlueStick" type="Node3D" parent="." unique_id=1460615103]
+transform = Transform3D(0.7071067, 0.7071067, 0, -0.7071067, 0.7071067, 0, 0, 0, 1, -0.08, 0.08, 0.18)
+
+[node name="BlueStick" type="MeshInstance3D" parent="BlueStick" unique_id=225165126]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0.11, 0, 0)
+mesh = SubResource("BoxMesh_516p2")
+
+[node name="RedStick" type="Node3D" parent="." unique_id=595209349]
+transform = Transform3D(0.7071067, -0.7071067, 0, 0.7071067, 0.7071067, 0, 0, 0, 1, -0.08, -0.08, 0.19)
+
+[node name="RedStick" type="MeshInstance3D" parent="RedStick" unique_id=904814798]
+transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1, 0.11, 0, 0)
+mesh = SubResource("BoxMesh_brn24")

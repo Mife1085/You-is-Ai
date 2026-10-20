@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://c5fj787kow168"]
+
+[ext_resource type="Script" uid="uid://030gvwtc08uj" path="res://scenes/interact/Cubes/cube_monitor.gd" id="1_ca7m1"]
+[ext_resource type="Material" uid="uid://docfbaq42wyxn" path="res://resources/Materials/metall.tres" id="1_uaj6n"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ca7m1"]
+bounce = 0.3
+absorbent = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_brn24"]
+material = ExtResource("1_uaj6n")
+size = Vector3(0.4, 0.4, 0.29768068)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w4ubm"]
+albedo_color = Color(0.19050813, 0.30868623, 0.25720873, 1)
+metallic_specular = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_e5sax"]
+material = SubResource("StandardMaterial3D_w4ubm")
+size = Vector3(0.3, 0.23544922, 0.035)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_apd6l"]
+albedo_color = Color(0.57398546, 1.1792034e-06, 5.2943824e-07, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_brn24"]
+material = SubResource("StandardMaterial3D_apd6l")
+top_radius = 0.022949219
+bottom_radius = 0.022949219
+height = 0.00390625
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ca7m1"]
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="Curve" id="Curve_viqs7"]
+_data = [Vector2(0.0503876, 0.648), 0.0, 0.0, 0, 0, Vector2(0.91085273, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_efmhg"]
+material = ExtResource("1_uaj6n")
+radius = 0.25
+radial_steps = 4
+sections = 2
+section_length = 0.06
+section_rings = 1
+cap_bottom = false
+curve = SubResource("Curve_viqs7")
+
+[node name="Cube_Monitor" type="RigidBody3D" unique_id=111597011]
+collision_layer = 3
+collision_mask = 3
+mass = 5.0
+physics_material_override = SubResource("PhysicsMaterial_ca7m1")
+freeze_mode = 1
+script = ExtResource("1_ca7m1")
+
+[node name="Board" type="MeshInstance3D" parent="." unique_id=1905141515]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.051159665)
+mesh = SubResource("BoxMesh_brn24")
+
+[node name="Screen" type="MeshInstance3D" parent="." unique_id=1815118709]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.004, 0.037275393, 0.2)
+mesh = SubResource("BoxMesh_e5sax")
+
+[node name="AreaLight3D" type="OmniLight3D" parent="Screen" unique_id=1484978909]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0.24145493)
+light_color = Color(0.45882353, 0.6509804, 0.5686275, 1)
+light_energy = 2.0
+
+[node name="Button" type="MeshInstance3D" parent="." unique_id=65543492]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -0.13822532, 0.20145121)
+mesh = SubResource("CylinderMesh_brn24")
+
+[node name="Value" type="Label3D" parent="." unique_id=1677085110]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.037832502, 0.22)
+pixel_size = 0.001
+modulate = Color(0.75367624, 0.763921, 0.7663815, 1)
+text = "№ 2"
+font_size = 96
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=326730981 groups=["Cube"]]
+shape = SubResource("BoxShape3D_ca7m1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1163959862]
+transform = Transform3D(0.70710677, 3.090862e-08, -0.70710677, 0.70710677, -3.090862e-08, 0.70710677, 0, -1, -4.371139e-08, 0, 0, -0.1449049)
+mesh = SubResource("TubeTrailMesh_efmhg")

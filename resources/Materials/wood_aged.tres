@@ -1,0 +1,31 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://ir6im2whcf3"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xaill"]
+noise_type = 4
+frequency = 0.1805
+fractal_octaves = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_k2l4u"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_xaill")
+seamless = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0o3wr"]
+noise_type = 0
+seed = 91
+frequency = 0.3
+fractal_octaves = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fmn81"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_0o3wr")
+seamless = true
+
+[resource]
+albedo_color = Color(0.4, 0.27, 0.14, 1)
+albedo_texture = SubResource("NoiseTexture2D_k2l4u")
+roughness = 0.92
+roughness_texture = SubResource("NoiseTexture2D_fmn81")
+uv1_triplanar = true

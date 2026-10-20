@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://desvl42un500p"]
+
+[ext_resource type="Script" uid="uid://jrdiiu0qsx0i" path="res://scenes/interact/monitor.gd" id="1_1y0o3"]
+[ext_resource type="Material" uid="uid://docfbaq42wyxn" path="res://resources/Materials/metall.tres" id="2_2ws3i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_brn24"]
+size = Vector3(1.6, 1.1, 0.15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_brn24"]
+material = ExtResource("2_2ws3i")
+size = Vector3(1.6, 1.1, 0.15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ws3i"]
+albedo_color = Color(0.45998532, 0.65256536, 0.570112, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2ws3i"]
+material = SubResource("StandardMaterial3D_2ws3i")
+size = Vector3(1.472168, 0.9628906, 0.23083496)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_130a8"]
+albedo_color = Color(0.8055935, 0.80559343, 0.8055931, 1)
+metallic = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_apd6l"]
+material = SubResource("StandardMaterial3D_130a8")
+size = Vector3(0.26843262, 0.05517578, 0.110839844)
+
+[node name="Monitor" type="StaticBody3D" unique_id=1464979083]
+script = ExtResource("1_1y0o3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=303838318]
+shape = SubResource("BoxShape3D_brn24")
+
+[node name="Board" type="MeshInstance3D" parent="." unique_id=1685875666]
+mesh = SubResource("BoxMesh_brn24")
+
+[node name="Screen" type="MeshInstance3D" parent="." unique_id=1832022974]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0056152344, 0.018554688, -0.031476527)
+mesh = SubResource("BoxMesh_2ws3i")
+
+[node name="AreaLight3D" type="OmniLight3D" parent="Screen" unique_id=1649724442]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0.24145493)
+light_color = Color(0.45882353, 0.6509804, 0.5686275, 1)
+light_energy = 2.0
+omni_shadow_mode = 0
+
+[node name="Value" type="Label3D" parent="." unique_id=24241828]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.018688232, 0.047956407, 0.103708275)
+modulate = Color(0.16952145, 0.44786173, 0.8568829, 1)
+text = "0"
+font_size = 98
+
+[node name="Index" type="Label3D" parent="." unique_id=2041924251]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.008228421, -0.47109848, 0.0907366)
+text = "№ 1"
+font_size = 40
+
+[node name="Connect" type="MeshInstance3D" parent="." unique_id=634254231]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5772773, 0)
+mesh = SubResource("BoxMesh_apd6l")

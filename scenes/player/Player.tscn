@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://b2xb76wbcmx3l"]
+
+[ext_resource type="Script" uid="uid://k1kh14dv8br5" path="res://scenes/player/player.gd" id="1_wr5hl"]
+[ext_resource type="PackedScene" uid="uid://bc4hck7md8gmm" path="res://scenes/ui/HUD.tscn" id="2_gfjak"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_brn24"]
+radius = 0.4
+height = 1.8
+
+[node name="Player" type="CharacterBody3D" unique_id=698894414]
+script = ExtResource("1_wr5hl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1851138761]
+shape = SubResource("CapsuleShape3D_brn24")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=324619950]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+current = true
+size = 1.115
+
+[node name="OmniLight3D" type="SpotLight3D" parent="Camera3D" unique_id=1121333337]
+light_energy = 2.0
+spot_range = 10.0
+spot_angle = 32.87
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=718959516]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5974763, 0)
+target_position = Vector3(0, 0, -60)
+collision_mask = 2
+
+[node name="Marker" type="Node3D" parent="RayCast3D" unique_id=1223220870]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="HUD" parent="." unique_id=1670209023 instance=ExtResource("2_gfjak")]
+
+[node name="One_tap" type="Timer" parent="." unique_id=1950272389]
+wait_time = 0.2
+one_shot = true

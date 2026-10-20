@@ -1,0 +1,65 @@
+class_name Cube
+extends RigidBody3D
+
+#enum Type { MONITOR, DIGIT, LOGIC, COMPARE, DO, BUTTON }
+
+#@export var type: Type = Type.DIGIT
+#@export var value: int = 0
+@onready var ROOM = get_tree().current_scene
+@onready var player: CharacterBody3D = null
+@onready var automate: StaticBody3D = null
+var busy_pos: Vector2i = Vector2i(-1, -1)
+var in_automate: bool = false
+var is_drag: bool = false
+var look_me: bool = true
+
+
+func _physics_process(delta: float) -> void:
+	if is_drag:
+		drag(delta)
+		
+func start() -> void:
+	add_to_group("Cube", true)
+	if ROOM is Node3D:
+		player = ROOM.Player
+		automate = ROOM.Automate
+	freeze_mode = FREEZE_MODE_KINEMATIC
+
+func interact(is_pressed: bool = false) -> void:
+	is_drag = is_pressed
+	freeze = is_pressed
+	if not is_pressed:
+		automate.snap(self)
+		if not in_automate:
+			set_thread_safe("angular_velocity", Vector3.ONE*2)
+			return
+
+
+#func interact_alt():
+	#match type:
+		#Type.MONITOR: value = (value % max_monitors) + 1
+		#Type.DIGIT:   value = (value + 1) % 10
+		#Type.LOGIC:   value = (value + 1) % 4
+		#Type.COMPARE: value = (value + 1) % 3
+		#Type.BUTTON:  value = (value + 1) % 4
+	#_refresh()
+#
+#func _refresh() -> void:
+	#match type:
+		#Type.MONITOR: label.text = "№%d" % value
+		#Type.DIGIT:   label.text = str(value)
+		#Type.LOGIC:   label.text = ["AND","OR","XOR","NOT"][value]
+		#Type.COMPARE: label.text = [">", "<", "="][value]
+		#Type.BUTTON:  label.text = ["G","R","B","Y"][value]
+		#Type.DO:      label.text = "DO"
+
+func drag(delta):
+	if not player:
+		player = ROOM.Player
+		return
+	var marker = player.marker
+	if look_me:
+		for n in ["y", "z"]:
+			global_rotation[n] += (marker.global_rotation[n] - global_rotation[n]) * 8 * delta 
+	#global_rotation.z += (marker.z - global_rotation.z) * 8 * delta 
+	global_position += (marker.global_position + player.velocity/8 - global_position) * 8 * delta 

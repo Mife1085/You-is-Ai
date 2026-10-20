@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://cv05333wljy2f"]
+
+[ext_resource type="Script" uid="uid://cqeo1ng5wv0fw" path="res://scenes/interact/Cubes/cube_digit.gd" id="1_4jbt2"]
+[ext_resource type="ArrayMesh" uid="uid://dsfgw8jeewtm5" path="res://meshes/Stick1_20261016_121524.res" id="2_6a3xd"]
+
+[sub_resource type="TextMesh" id="TextMesh_brn24"]
+text = "0"
+font_size = 34
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ik8rx"]
+size = Vector3(0.41, 0.41, 0.41)
+
+[sub_resource type="Gradient" id="Gradient_4mwom"]
+colors = PackedColorArray(9.62615e-07, 0.27509883, 3.6098064e-07, 1, 0.49608022, 0.81090176, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ln2dc"]
+frequency = 1.0
+fractal_octaves = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0sflb"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_ln2dc")
+color_ramp = SubResource("Gradient_4mwom")
+seamless = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_j5wiu"]
+noise_type = 0
+seed = 21
+frequency = 0.5
+fractal_octaves = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_14wrs"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_j5wiu")
+seamless = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fp83u"]
+albedo_color = Color(0.32786474, 0.5471841, 1.1551381e-06, 1)
+albedo_texture = SubResource("NoiseTexture2D_0sflb")
+metallic = 0.1
+roughness = 0.45
+roughness_texture = SubResource("NoiseTexture2D_14wrs")
+uv1_scale = Vector3(4, 4, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bi538"]
+material = SubResource("StandardMaterial3D_fp83u")
+size = Vector3(0.31, 0.31, 0.31)
+
+[node name="Cube_Digit" type="RigidBody3D" unique_id=709284282]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_4jbt2")
+
+[node name="Digit" type="MeshInstance3D" parent="." unique_id=461761105]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.16)
+mesh = SubResource("TextMesh_brn24")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1200286454 groups=["Cube"]]
+visible = false
+shape = SubResource("BoxShape3D_ik8rx")
+
+[node name="Sides" type="MeshInstance3D" parent="." unique_id=1251708946]
+mesh = SubResource("BoxMesh_bi538")
+
+[node name="Stick1_merged" type="MeshInstance3D" parent="." unique_id=1830498169]
+mesh = ExtResource("2_6a3xd")

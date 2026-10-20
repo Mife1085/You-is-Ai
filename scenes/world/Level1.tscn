@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://ntv6sj6kl76i"]
+
+[ext_resource type="Script" uid="uid://c7t6u1p6e4y6i" path="res://scenes/world/level_1.gd" id="1_130a8"]
+[ext_resource type="PackedScene" uid="uid://desvl42un500p" path="res://scenes/interact/Monitor.tscn" id="2_4oesh"]
+[ext_resource type="PackedScene" uid="uid://dsr755p1kn0cy" path="res://scenes/interact/Button.tscn" id="3_4oesh"]
+[ext_resource type="PackedScene" uid="uid://c5fj787kow168" path="res://scenes/interact/Cubes/Cube_Monitor.tscn" id="4_130a8"]
+[ext_resource type="PackedScene" uid="uid://bmu3wtutywumv" path="res://scenes/interact/Cubes/Cube_Button.tscn" id="5_q1x2y"]
+[ext_resource type="PackedScene" uid="uid://btm5b77mprk2t" path="res://scenes/interact/Cubes/Cube_Compare.tscn" id="6_y4wga"]
+[ext_resource type="PackedScene" uid="uid://da4wf0yjh3vif" path="res://scenes/interact/Cubes/Cube_Logic.tscn" id="7_ypvi7"]
+[ext_resource type="PackedScene" uid="uid://cv05333wljy2f" path="res://scenes/interact/Cubes/Cube_Digit.tscn" id="8_iku72"]
+[ext_resource type="PackedScene" uid="uid://cwgwkeqnthk1l" path="res://scenes/interact/Cubes/Cube_Do.tscn" id="9_40x7k"]
+
+[node name="Level1" type="Node3D" unique_id=1405193638]
+script = ExtResource("1_130a8")
+
+[node name="Monitor" parent="." unique_id=256124731 instance=ExtResource("2_4oesh")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 6, -15)
+type = "TIMER"
+
+[node name="Monitor2" parent="." unique_id=1075537190 instance=ExtResource("2_4oesh")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -1.5, 3, -15)
+monitor_label = "Current_drink"
+
+[node name="Monitor3" parent="." unique_id=668740636 instance=ExtResource("2_4oesh")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 1.5, 3, -15)
+monitor_index = 2
+monitor_label = "Max_drink"
+
+[node name="Button" parent="." unique_id=1557600664 instance=ExtResource("3_4oesh")]
+transform = Transform3D(-4.3711385e-08, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -4.3711385e-08, 0, 0, -8)
+
+[node name="Cube_Monitor" parent="." unique_id=111597011 instance=ExtResource("4_130a8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 2, 0.5)
+
+[node name="Cube_Monitor2" parent="." unique_id=2007715094 instance=ExtResource("4_130a8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 2, -1)
+
+[node name="Cube_Button" parent="." unique_id=571295656 instance=ExtResource("5_q1x2y")]
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, -6.551, 1, -5.523)
+
+[node name="Cube_Button2" parent="." unique_id=1870288722 instance=ExtResource("5_q1x2y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 2, -2.6)
+
+[node name="Cube_Button3" parent="." unique_id=1157663260 instance=ExtResource("5_q1x2y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 2, -2.6)
+
+[node name="Cube_Compare" parent="." unique_id=667768511 instance=ExtResource("6_y4wga")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 2, -0.2)
+
+[node name="CubeLogic" parent="." unique_id=709284282 instance=ExtResource("7_ypvi7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.551, 3.465628, -5.523)
+
+[node name="CubeDigit" parent="." unique_id=239956404 instance=ExtResource("8_iku72")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.551, 3.9523766, -5.523)
+
+[node name="CubeDigit2" parent="." unique_id=1721885285 instance=ExtResource("8_iku72")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.551, 4.5223875, -5.523)
+
+[node name="CubeDo" parent="." unique_id=1938388647 instance=ExtResource("9_40x7k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 2, -1.8)
+
+[node name="guast" type="Timer" parent="." unique_id=227417206]
+wait_time = 2.0
+one_shot = true
+
+[node name="wait" type="Timer" parent="." unique_id=897728997]
+wait_time = 5.0
+one_shot = true
+
+[node name="drind_ready" type="Timer" parent="." unique_id=1853866975]
+one_shot = true
+
+[node name="win" type="Timer" parent="." unique_id=1303640348]
+wait_time = 30.0
+one_shot = true
+
+[connection signal="not_pressed" from="Button" to="." method="_on_button_not_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="timeout" from="guast" to="." method="_on_guast_timeout"]
+[connection signal="timeout" from="wait" to="." method="_on_wait_timeout"]
+[connection signal="timeout" from="drind_ready" to="." method="_on_drind_ready_timeout"]
+[connection signal="timeout" from="win" to="." method="_on_win_timeout"]

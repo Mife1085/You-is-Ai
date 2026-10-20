@@ -1,0 +1,31 @@
+extends Cube
+
+var color_side: Array = []
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	start()
+	look_me = false
+	while len(color_side) < 6:
+		color_side.append(Color(randf(), randf(), randf()))
+	for i in range(6):
+		var side = get_child(i)
+		side.mesh = side.mesh.duplicate()
+		side.mesh.material = side.mesh.material.duplicate()
+		side.mesh.material.albedo_color = color_side[i]
+
+		
+
+func interact_alt():
+	var color = color_side[0]
+	color_side.erase(color)
+	color_side.append(color)
+	for side in range(6):
+		get_child(side).mesh.material.albedo_color = color_side[side]
+	#i = (i + 1) % 4
+	#rotation_degrees.y = i * 90
+	#print(i, rotation_degrees)
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta: float) -> void:
+	#pass

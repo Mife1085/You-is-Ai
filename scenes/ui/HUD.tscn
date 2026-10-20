@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://bc4hck7md8gmm"]
+
+[ext_resource type="Script" uid="uid://drldqeb7tfi4k" path="res://scenes/ui/hud.gd" id="1_kw0id"]
+
+[node name="HUD" type="CanvasLayer" unique_id=1670209023]
+script = ExtResource("1_kw0id")
+
+[node name="LabelInfo" type="Control" parent="." unique_id=1471795997]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="LabelTimer" type="Control" parent="." unique_id=577764066]
+visible = false
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Cursor" type="Control" parent="." unique_id=1518346384]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="Cursor" unique_id=627674256]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ButtonsPanel" type="VBoxContainer" parent="." unique_id=1891989496]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.25
+offset_top = -31.0
+offset_right = 114.25
+offset_bottom = 102.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+
+[node name="ButtonReset" type="Button" parent="ButtonsPanel" unique_id=696269427]
+layout_mode = 2
+text = "Restart"
+
+[node name="ButtonMenu" type="Button" parent="ButtonsPanel" unique_id=531313684]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Main Menu"

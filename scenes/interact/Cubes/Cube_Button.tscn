@@ -1,0 +1,144 @@
+[gd_scene format=3 uid="uid://bmu3wtutywumv"]
+
+[ext_resource type="Script" uid="uid://dtjr6peyuk4ga" path="res://scenes/interact/Cubes/cube_button.gd" id="1_0o1jq"]
+[ext_resource type="Material" uid="uid://cu0727bc86vmg" path="res://resources/Materials/metal_dark.tres" id="2_fnu6j"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_shw34"]
+albedo_color = Color(0.3346312, 0.45841438, 0.20171395, 1)
+metallic = 0.4
+roughness = 0.0
+emission_enabled = true
+emission_energy_multiplier = 0.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_apd6l"]
+material = SubResource("StandardMaterial3D_shw34")
+size = Vector2(0.32, 0.32)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8eydk"]
+albedo_color = Color(0.24707186, 0.000695008, 0.55532414, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_rxb2k"]
+material = SubResource("StandardMaterial3D_8eydk")
+size = Vector2(0.32, 0.32)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3p45u"]
+albedo_color = Color(0.6132527, 0.17705426, 0.4288899, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ll48t"]
+material = SubResource("StandardMaterial3D_3p45u")
+size = Vector2(0.32, 0.32)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o7037"]
+albedo_color = Color(0.41213185, 0.38056225, 0.0864786, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_f83yn"]
+material = SubResource("StandardMaterial3D_o7037")
+size = Vector2(0.32, 0.32)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jh3ka"]
+albedo_color = Color(0.48242962, 0.2699692, 0.5604373, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_n5k06"]
+material = SubResource("StandardMaterial3D_jh3ka")
+size = Vector2(0.32, 0.32)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rushn"]
+albedo_color = Color(0.29893598, 0.5953455, 0.36478868, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_12xqt"]
+material = SubResource("StandardMaterial3D_rushn")
+size = Vector2(0.32, 0.32)
+
+[sub_resource type="BoxMesh" id="BoxMesh_efmhg"]
+material = ExtResource("2_fnu6j")
+size = Vector3(0.05, 0.4098381, 0.05)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_brn24"]
+size = Vector3(0.41, 0.41, 0.41)
+
+[node name="Cube_Button" type="RigidBody3D" unique_id=571295656]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_0o1jq")
+
+[node name="Side1" type="MeshInstance3D" parent="." unique_id=1766589776]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.16)
+mesh = SubResource("QuadMesh_apd6l")
+
+[node name="Side2" type="MeshInstance3D" parent="." unique_id=1562353221]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -0.16)
+mesh = SubResource("QuadMesh_rxb2k")
+
+[node name="Side3" type="MeshInstance3D" parent="." unique_id=2073486172]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.16, 0, 0)
+mesh = SubResource("QuadMesh_ll48t")
+
+[node name="Side4" type="MeshInstance3D" parent="." unique_id=413083973]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.16, 0, 0)
+mesh = SubResource("QuadMesh_f83yn")
+
+[node name="Side5" type="MeshInstance3D" parent="." unique_id=855523065]
+transform = Transform3D(-4.371139e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 1.9106855e-15, 0, 0.16, 0)
+mesh = SubResource("QuadMesh_n5k06")
+
+[node name="Side6" type="MeshInstance3D" parent="." unique_id=1524349886]
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 0, -0.16, 0)
+mesh = SubResource("QuadMesh_12xqt")
+
+[node name="Stick1" type="MeshInstance3D" parent="." unique_id=1134263752]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0, 0.18)
+mesh = SubResource("BoxMesh_efmhg")
+
+[node name="Stick2" type="MeshInstance3D" parent="." unique_id=1040112983]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0, 0.18)
+mesh = SubResource("BoxMesh_efmhg")
+
+[node name="Stick3" type="MeshInstance3D" parent="." unique_id=1779686556]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0, -0.18)
+mesh = SubResource("BoxMesh_efmhg")
+
+[node name="Stick4" type="MeshInstance3D" parent="." unique_id=1330554656]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0, -0.18)
+mesh = SubResource("BoxMesh_efmhg")
+
+[node name="Stick5" type="MeshInstance3D" parent="." unique_id=2079285446]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.0003208071, 0.18, 0.18)
+mesh = SubResource("BoxMesh_efmhg")
+
+[node name="Stick6" type="MeshInstance3D" parent="." unique_id=381840437]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.00033276668, 0.18, -0.18)
+mesh = SubResource("BoxMesh_efmhg")
+
+[node name="Stick7" type="MeshInstance3D" parent="." unique_id=916142225]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, -0.18, -0.18)
+mesh = SubResource("BoxMesh_efmhg")
+
+[node name="Stick8" type="MeshInstance3D" parent="." unique_id=1823803819]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, -0.18, 0.18)
+mesh = SubResource("BoxMesh_efmhg")
+
+[node name="Stick9" type="MeshInstance3D" parent="." unique_id=736904100]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, 0.18, 0.18, 0)
+mesh = SubResource("BoxMesh_efmhg")
+
+[node name="Stick10" type="MeshInstance3D" parent="." unique_id=390275557]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, 0.18, -0.18, 0)
+mesh = SubResource("BoxMesh_efmhg")
+
+[node name="Stick11" type="MeshInstance3D" parent="." unique_id=109870062]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, -0.18, -0.18, 0)
+mesh = SubResource("BoxMesh_efmhg")
+
+[node name="Stick12" type="MeshInstance3D" parent="." unique_id=210687206]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, -0.18, 0.18, 0)
+mesh = SubResource("BoxMesh_efmhg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1590150975 groups=["Cube"]]
+visible = false
+shape = SubResource("BoxShape3D_brn24")
+
+[node name="off_ligth_side" type="Timer" parent="." unique_id=37160250]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="off_ligth_side" to="." method="_on_off_ligth_side_timeout"]

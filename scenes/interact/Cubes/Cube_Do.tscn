@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://cwgwkeqnthk1l"]
+
+[ext_resource type="Script" uid="uid://dye1nrveypags" path="res://scenes/interact/Cubes/cube_do.gd" id="1_krvpy"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ik8rx"]
+size = Vector3(0.41, 0.41, 0.41)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_efmhg"]
+albedo_color = Color(0, 0, 0, 1)
+metallic = 0.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_apd6l"]
+material = SubResource("StandardMaterial3D_efmhg")
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_brn24"]
+size = Vector3(0.2, 0.08, 0.01)
+
+[sub_resource type="PrismMesh" id="PrismMesh_apd6l"]
+size = Vector3(0.2, 0.08, 0.01)
+
+[sub_resource type="TextMesh" id="TextMesh_0p8xf"]
+text = "Do"
+
+[sub_resource type="TextMesh" id="TextMesh_apd6l"]
+text = "True"
+
+[node name="Cube_Do" type="RigidBody3D" unique_id=709284282]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_krvpy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1200286454 groups=["Cube"]]
+visible = false
+shape = SubResource("BoxShape3D_ik8rx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1370388817]
+mesh = SubResource("BoxMesh_apd6l")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=955605847]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04, 0, 0.21)
+mesh = SubResource("BoxMesh_brn24")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=156353779]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.099999994, 0, 0.21)
+mesh = SubResource("PrismMesh_apd6l")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=1080752813]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04, 0, -0.21)
+mesh = SubResource("BoxMesh_brn24")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="." unique_id=894574052]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.099999994, 0, -0.21)
+mesh = SubResource("PrismMesh_apd6l")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="." unique_id=1185445344]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.04, 0.21, 0)
+mesh = SubResource("BoxMesh_brn24")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="." unique_id=1455077781]
+transform = Transform3D(-4.371139e-08, 1, 0, 4.371139e-08, 1.9106855e-15, -1, -1, -4.371139e-08, -4.371139e-08, 0.099999994, 0.21, 0)
+mesh = SubResource("PrismMesh_apd6l")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="." unique_id=1573652823]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.04, -0.21, 0)
+mesh = SubResource("BoxMesh_brn24")
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="." unique_id=204364285]
+transform = Transform3D(-4.371139e-08, 1, 0, 4.371139e-08, 1.9106855e-15, -1, -1, -4.371139e-08, -4.371139e-08, 0.099999994, -0.21, 0)
+mesh = SubResource("PrismMesh_apd6l")
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="." unique_id=791180444]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.2, 0, 0)
+mesh = SubResource("TextMesh_0p8xf")
+
+[node name="MeshInstance3D11" type="MeshInstance3D" parent="." unique_id=1159333903]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.21, 0, 0)
+mesh = SubResource("TextMesh_apd6l")

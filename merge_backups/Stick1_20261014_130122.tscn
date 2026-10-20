@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://cnuw3fuxvkbt7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_viqs7"]
+albedo_color = Color(0.22670749, 0.22670749, 0.22670746, 1)
+metallic = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_efmhg"]
+material = SubResource("StandardMaterial3D_viqs7")
+size = Vector3(0.05, 0.4098381, 0.05)
+
+[node name="Stick1_backup" type="Node3D" unique_id=338773225]
+
+[node name="Stick1" type="MeshInstance3D" parent="." unique_id=2026034447]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0, 0.18)
+mesh = SubResource("BoxMesh_efmhg")
+
+[node name="Stick2" type="MeshInstance3D" parent="." unique_id=1813098286]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0, 0.18)
+mesh = SubResource("BoxMesh_efmhg")
+
+[node name="Stick3" type="MeshInstance3D" parent="." unique_id=1641549740]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0, -0.18)
+mesh = SubResource("BoxMesh_efmhg")
+
+[node name="Stick4" type="MeshInstance3D" parent="." unique_id=1756624482]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0, -0.18)
+mesh = SubResource("BoxMesh_efmhg")
+
+[node name="Stick5" type="MeshInstance3D" parent="." unique_id=1692365440]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.0003208071, 0.18, 0.18)
+mesh = SubResource("BoxMesh_efmhg")
+
+[node name="Stick6" type="MeshInstance3D" parent="." unique_id=1049659419]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.00033276668, 0.18, -0.18)
+mesh = SubResource("BoxMesh_efmhg")
+
+[node name="Stick7" type="MeshInstance3D" parent="." unique_id=58475389]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, -0.18, -0.18)
+mesh = SubResource("BoxMesh_efmhg")
+
+[node name="Stick8" type="MeshInstance3D" parent="." unique_id=1060246027]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, -0.18, 0.18)
+mesh = SubResource("BoxMesh_efmhg")
+
+[node name="Stick9" type="MeshInstance3D" parent="." unique_id=1480151566]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, 0.18, 0.18, 0)
+mesh = SubResource("BoxMesh_efmhg")
+
+[node name="Stick10" type="MeshInstance3D" parent="." unique_id=1575582729]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, 0.18, -0.18, 0)
+mesh = SubResource("BoxMesh_efmhg")
+
+[node name="Stick11" type="MeshInstance3D" parent="." unique_id=559886072]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, -0.18, -0.18, 0)
+mesh = SubResource("BoxMesh_efmhg")
+
+[node name="Stick12" type="MeshInstance3D" parent="." unique_id=1334611616]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, -0.18, 0.18, 0)
+mesh = SubResource("BoxMesh_efmhg")
