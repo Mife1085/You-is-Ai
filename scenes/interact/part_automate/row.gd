@@ -39,7 +39,6 @@ func anim_error(inx):
 		await get_tree().create_timer(sec*3).timeout
 		lamps_off()
 		Big_lamp_enable(true, Color.WEB_GRAY)
-		animation_finish.emit()
 	elif inx == -1:
 		lamps_on(RED)
 		await get_tree().create_timer(sec*3).timeout
@@ -57,7 +56,7 @@ func anim_error(inx):
 		await get_tree().create_timer(sec).timeout
 		lamps_off()
 		press()
-	print_debug(inx)
+	animation_finish.emit()
 
 func Big_lamp_enable(enable: bool, color=GREEN):
 	$Big_lamp.mesh.material.emission = color

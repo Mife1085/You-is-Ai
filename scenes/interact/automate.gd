@@ -12,7 +12,7 @@ func _ready() -> void:
 				#Row.button_ready.connect(play.bind(Row))
 				Row.row_check.connect(play.bind(Row))
 				Rows_status[Row] = {}
-				Rows_status[Row].assign({"check": false, "start": false, "cubes": []})
+				Rows_status[Row].assign({"check": false, "start": false, "cubes": [], "buttons": []})
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
@@ -102,36 +102,35 @@ func check_valid(Row):
 				if have_do:
 					return busy_pos_list[cube][1]
 				have_do = true
-	cubes = cubes.filter(func(a): return a != null)
-	if len(cubes) < 3 or not have_do: return -1
-	var i = 0
-	while i < len(cubes)-1:
-		var next_cube = cubes.get(i+1)
-		print(next_cube)
-		if cubes[i].type in ["MONITOR", "BUTTON"]:
+	var analis = cubes.filter(func(a): return a != null)
+	if len(analis) < 3 or not have_do: return -1
+	var ci = 0
+	for cube in analis:
+		var i = cubes.find(cube)
+		var next_cube = analis.get(ci+1)
+		if cube.type in ["MONITOR", "BUTTON"]:
 			if next_cube:
+				if next_cube.type not in ["COMPARE", "LOGIC", "DO"]:
+					return i
 				if next_cube.type == "COMPARE":
 					if next_cube.get_value() == "x":
 						return i
-				if next_cube.type not in ["COMPARE", "LOGIC", "DO"]:
-					return i
-		if cubes[i].type == "DIGIT":
+	
+		if cube.type == "DIGIT":
 			if next_cube:
+				if next_cube.type not in ["DIGIT", "COMPARE", "LOGIC", "DO"]:
+					return i
 				if next_cube.type == "COMPARE":
 					if next_cube.get_value() == "x":
 						return i		
-				if next_cube.type not in ["DIGIT", "COMPARE", "LOGIC", "DO"]:
-					return i
 
-		if cubes[i].type in ["COMPARE", "LOGIC"]:
-			if next_cube:
-				if not next_cube: return i
-				if next_cube.type == "COMPARE":
-					if next_cube.get_value() != "x":
-						return i
-				if next_cube.type not in ["MONITOR", "DIGIT", "BUTTON"]: return i
-				print_debug(next_cube)
-		if cubes[i].type == "DO":
+		if cube.type in ["COMPARE", "LOGIC"]:
+			if not next_cube: return i
+			if next_cube.type not in ["MONITOR", "DIGIT", "BUTTON"]: return i
+			if next_cube.type == "COMPARE":
+				if next_cube.get_value() != "x":
+					return i
+		if cube.type == "DO":
 			if next_cube:
 				if not next_cube: return i
 				if next_cube.type == "COMPARE":
@@ -139,7 +138,7 @@ func check_valid(Row):
 						return i
 				if next_cube.type not in ["BUTTON"]: return i
 
-	Rows_status[Row].cubes = cubes
+	Rows_status[Row].cubes = analis
 	return 0 # Проверка прошла успешно и без ошибок
 
 func play(Row):
@@ -149,6 +148,7 @@ func play(Row):
 		return
 	Row.timer.start()
 	var cubes = Rows_status[Row].cubes
+	var buttons = Rows_status[Row].buttons
 	var analys = []
 	var have_do = false
 	var i = 0
@@ -168,45 +168,44 @@ func play(Row):
 			"BUTTON":
 				if have_do:
 					var btn = cubes[i].get_value(true)
-					if btn == null: return i
+					if btn == null: hold_buttons(buttons, false)
 					analys.append(btn) # obj кнопка
+					if btn not in buttons:
+						buttons.append(btn)
 				else:
 					analys.append(cubes[i].get_value(false)) # флаг is_pressed
 			"COMPARE":
 				var value = cubes[i].get_value()
 				if value == "x":
 					var b = cubes.get(i+1)
-					if b == null: return i
+					if b == null: hold_buttons(buttons, false)
 					b = b.get_value()
-					if typeof(b) not in [TYPE_INT, TYPE_FLOAT, TYPE_BOOL]: return i
+					if typeof(b) not in [TYPE_INT, TYPE_FLOAT, TYPE_BOOL]: hold_buttons(buttons, false)
 					analys.append(not bool(b))
 				else:
-					var a = analys.get(i-1)
+					var a = analys.pop_back()
 					var b = cubes.get(i+1)
 					for n in [a, b]:
-						if n == null:
-							return i
+						if n == null: hold_buttons(buttons, false)
 					b = b.get_value()
 					for n in [a, b]:
-						if typeof(n) not in [TYPE_INT, TYPE_FLOAT, TYPE_BOOL]:
-							return i
-					analys.remove_at(i-1)
+						if typeof(n) not in [TYPE_INT, TYPE_FLOAT, TYPE_BOOL]: hold_buttons(buttons, false)
 					a = float(a)
 					b = float(b)
 					match value:
 						">": analys.append(a > b)
 						"=": analys.append(a == b)
+						"=": analys.append(a == b)
 						"<": analys.append(a < b)
 				i += 1
 				
 			"LOGIC":
-				var a = analys.get(i-1)
+				var a = analys.pop_back()
 				var b = cubes.get(i+1)
-				if null in [a, b]: return i
+				if null in [a, b]: hold_buttons(buttons, false)
 				b = b.get_value()
 				for n in [a, b]:
-					if typeof(n) not in [TYPE_INT, TYPE_FLOAT, TYPE_BOOL]: return i
-				analys.remove_at(i-1)
+					if typeof(n) not in [TYPE_INT, TYPE_FLOAT, TYPE_BOOL]: hold_buttons(buttons, false)
 				a = bool(a)
 				b = bool(b)
 				match cubes[i].get_value():
@@ -214,16 +213,22 @@ func play(Row):
 					"AND": analys.append(a and b)
 					"XOR": analys.append(a != b)
 					"IMP": analys.append(a < b)
+				i += 1
 			"DO":
-				if i == 0: return i
+				if i == 0: hold_buttons(buttons, false)
 				var a = analys.pop_back()
-				if bool(a) != true: return i
+				if bool(a) != true: hold_buttons(buttons, false)
 				have_do = true
 				analys.append("do")
 		i += 1
 	
 	print(analys) # good result == [true, "do", Button]
-	return true
+	Rows_status[Row].buttons = buttons
+	hold_buttons(buttons, true)
 
+func hold_buttons(buttons: Array, is_hold: bool):
+	if not buttons.is_empty():
+		for btn in buttons:
+			btn.hold(is_hold, true) # automate=true
 func change_row(cube):
 	pass
