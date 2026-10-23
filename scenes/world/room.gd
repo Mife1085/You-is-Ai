@@ -49,7 +49,7 @@ func progress(cur: float, target: float):
 	if cur == 0.0:
 		$Progress.value = 0
 		return
-	$Progress.value = 100-cur/target*100
+	$Progress.value = 101-cur/target*100
 
 
 func _on_area_3d_body_exited(body: Node3D) -> void:

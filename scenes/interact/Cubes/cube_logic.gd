@@ -17,7 +17,7 @@ func _ready() -> void:
 
 ## Смена значения по кругу.
 func interact_alt() -> void:
-	me_touch.emit()
+	
 	value = (value + 1) % 4
 	_apply_venn()
 

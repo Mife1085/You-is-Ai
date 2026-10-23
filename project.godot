@@ -27,7 +27,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Quick-Folds-main/addons/quick_folds/plugin.cfg", "res://addons/StaticMeshMerger/plugin.cfg")
+enabled=PackedStringArray("res://addons/Quick-Folds-main/addons/quick_folds/plugin.cfg", "res://addons/StaticMeshMerger/plugin.cfg", "res://addons/scene_dependency_viewer/plugin.cfg")
 
 [global_group]
 

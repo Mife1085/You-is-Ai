@@ -18,7 +18,7 @@ func _ready() -> void:
 	#pass
 
 func interact_alt():
-	me_touch.emit()
+	
 	value = (value + 1) % max_monitors
 	label.text = "№ %s" % (value + 1)
 

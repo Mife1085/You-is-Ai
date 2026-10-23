@@ -74,6 +74,8 @@ one_shot = true
 wait_time = 30.0
 one_shot = true
 
+[connection signal="automate_not_pressed" from="Button" to="." method="_on_button_automate_not_pressed"]
+[connection signal="automate_pressed" from="Button" to="." method="_on_button_automate_pressed"]
 [connection signal="not_pressed" from="Button" to="." method="_on_button_not_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="timeout" from="guast" to="." method="_on_guast_timeout"]

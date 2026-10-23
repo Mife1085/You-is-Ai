@@ -7,7 +7,7 @@ func _ready() -> void:
 	type = "COMPARE"
 
 func interact_alt():
-	me_touch.emit()
+	
 	value = (value + 1) % 4
 	_apply_pose(value)
 
@@ -16,8 +16,6 @@ func _apply_pose(mode: int) -> void:
 	var tween := create_tween()
 	tween.set_parallel(true)
 	var t = 0.25
-	#var change = []
-	print(mode)
 	match mode:
 		0:
 			tween.tween_property($BlueStick, "position:x", -0.08, t)

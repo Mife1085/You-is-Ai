@@ -136,9 +136,3 @@ mesh = SubResource("BoxMesh_efmhg")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1590150975 groups=["Cube"]]
 visible = false
 shape = SubResource("BoxShape3D_brn24")
-
-[node name="off_ligth_side" type="Timer" parent="." unique_id=37160250]
-wait_time = 0.1
-one_shot = true
-
-[connection signal="timeout" from="off_ligth_side" to="." method="_on_off_ligth_side_timeout"]

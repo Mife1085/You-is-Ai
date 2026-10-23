@@ -57,6 +57,10 @@ size = Vector3(0.6, 0.6, 0.1)
 material = ExtResource("1_nl6b4")
 size = Vector3(5.6, 0.2, 0.1)
 
+[sub_resource type="TextMesh" id="TextMesh_xrivr"]
+text = "это какой этаж?"
+font_size = 64
+
 [node name="Automate" type="StaticBody3D" unique_id=354079301]
 script = ExtResource("1_ab476")
 
@@ -174,13 +178,12 @@ debug_color = Color(0.6143595, 0.5268232, 0.30403435, 0.41960785)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 3, -0.54190135)
 mesh = SubResource("BoxMesh_u4kt7")
 
-[node name="Timer" type="Timer" parent="." unique_id=23853881]
-one_shot = true
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=33232322]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 2.5495582, 3.8163738, -1.6025343)
+mesh = SubResource("TextMesh_xrivr")
 
 [connection signal="button_play_pressed" from="Row1" to="." method="_on_raw_1_button_play_pressed"]
 [connection signal="button_play_pressed" from="Row2" to="." method="_on_row_2_button_play_pressed"]
 [connection signal="button_play_pressed" from="Row3" to="." method="_on_row_3_button_play_pressed"]
 [connection signal="button_play_pressed" from="Row4" to="." method="_on_row_4_button_play_pressed"]
 [connection signal="body_entered" from="Cube_check" to="." method="_on_cube_check_body_entered"]
-[connection signal="body_exited" from="Cube_check" to="." method="_on_cube_check_body_exited"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

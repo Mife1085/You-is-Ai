@@ -6,7 +6,7 @@ func _ready() -> void:
 	look_me = true
 
 func interact_alt() -> void:
-	me_touch.emit()
+	pass
 
 func get_value():
 	return "do"

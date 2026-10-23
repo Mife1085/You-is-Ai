@@ -11,6 +11,7 @@ var Buttons = []
 var is_win = false
 var color_set = false
 var button_pressed = false
+var automate_pressed = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	timer.value = 1000.0
@@ -27,6 +28,7 @@ func _ready() -> void:
 	for cb in Cube_Button:
 		cb.setup(Buttons)
 	$guast.start()
+	$win.start()
 	
 var delta
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -34,15 +36,10 @@ func _process(_delta: float) -> void:
 	delta = _delta
 	ROOM.progress($win.time_left, $win.wait_time)
 	timer.value -= 5 * delta # passiv
-	#if cur.value > lim.value/2 and cur.value < lim.value*2:
-		#timer.value += (2 - (lim.value / cur.value)) * 10 * delta # active
-		#if $wait.time_left == 0.0:
-			#$wait.start()
 	
 	if timer.value <= 0:
 		set_process(false)
 		ROOM.flashing(false)
-		print_debug("dead")
 	
 	if button_pressed:
 		if lim.value > 0:
@@ -51,7 +48,8 @@ func _process(_delta: float) -> void:
 			timer.value -= 2
 			$guast.start()
 		$drind_ready.start()
-		$win.start()
+		if not automate_pressed:
+			$win.start()
 
 
 func _on_button_pressed() -> void:
@@ -59,6 +57,12 @@ func _on_button_pressed() -> void:
 
 func _on_button_not_pressed() -> void:
 	button_pressed = false
+
+func _on_button_automate_pressed() -> void:
+	automate_pressed = true
+
+func _on_button_automate_not_pressed() -> void:
+	automate_pressed = false
 	
 func _on_guast_timeout() -> void:
 	var r = randi_range(2, 6)
@@ -93,6 +97,7 @@ func _on_win_timeout() -> void:
 		return
 	ROOM.flashing(true)
 	is_win = true
+	set_process(false)
 
 func get_button_with_color(color):
 	for b in Buttons:

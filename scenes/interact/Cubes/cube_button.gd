@@ -9,7 +9,7 @@ var value: StaticBody3D = null
 func _ready() -> void:
 	super._ready()
 	type = "BUTTON"
-	look_me = false
+	look_me = true
 	
 func setup(button_list):
 	for btn in button_list:
@@ -32,7 +32,7 @@ func setup(button_list):
 		side.mesh.material.emission_energy_multiplier = 10
 
 func interact_alt():
-	me_touch.emit()
+	
 	color_side.append(color_side.pop_front())
 	for i in range(6):
 		var side = get_child(i)
@@ -48,7 +48,3 @@ func ligth_side(color: Color, enable: bool):
 	target_side = get_child(color_side.find(color))
 	target_side.mesh.material.emission = color
 	target_side.mesh.material.emission_enabled = enable
-
-
-func _on_off_ligth_side_timeout() -> void:
-	pass # Replace with function body.
