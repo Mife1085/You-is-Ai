@@ -9,7 +9,8 @@ func _ready() -> void:
 		match Row.name.remove_chars("0123456789"):
 			"Row":
 				Row.button_play_pressed.connect(check_and_play.bind(Row))
-				Row.button_ready.connect(play.bind(Row))
+				#Row.button_ready.connect(play.bind(Row))
+				Row.row_check.connect(play.bind(Row))
 				Rows_status[Row] = {}
 				Rows_status[Row].assign({"check": false, "start": false, "cubes": []})
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -44,7 +45,6 @@ func snap(cube: RigidBody3D):
 		cube.in_automate = false
 		busy_pos_list.erase(cube)
 		return
-	
 	cube.freeze = true
 	cube.in_automate = true
 	var angle = rotation_degrees if cube.look_me else Vector3(0, int(round(cube.rotation_degrees.y/90))*90, 0)
@@ -63,40 +63,33 @@ func snap(cube: RigidBody3D):
 	tween.set_parallel(true)
 	tween.tween_property(cube, "global_position", pos, 0.5)
 	tween.tween_property(cube, "rotation_degrees", angle, 0.5)
-	#var xform = cell(1, 1)
-	#PhysicsServer3D.body_set_state(get_rid(), PhysicsServer3D.BODY_STATE_TRANSFORM, xform)
 
 func _on_cube_check_body_entered(cube) -> void:
 	if cube.is_in_group("Cube"):
 		if not cube.is_drag:
 			snap(cube)
 
-func _on_cube_check_body_exited(cube: Node3D) -> void:
-	print(cube)
-	if cube.is_in_group("Cube"):
-		if cube in busy_pos_list.keys():
-			Rows_status[get_child(busy_pos_list[cube][0]-1)].check = false
-			prints(Rows_status[get_child(busy_pos_list[cube][0]-1)])
-			busy_pos_list.erase(cube)
+#func _on_cube_check_body_exited(cube: Node3D) -> void:
+	#if cube.is_in_group("Cube"):
+		#if cube in busy_pos_list.keys():
+			#Rows_status[get_child(busy_pos_list[cube][0]-1)].check = false
+			#busy_pos_list.erase(cube)
 
 func check_and_play(Row):
 	Row.press()
-	if not Rows_status[Row]["check"]:
+	if Row.is_press:
 		var result = check_valid(Row)
-		if result == 0:
-			Rows_status[Row].check = true
-			Rows_status[Row].start = true
-		print("Row.anim_error(result)")
 		Row.anim_error(result)
+		await Row.animation_finish
+		if result == 0:
+			Row.timer.start()
+		else:
+			Row.timer.stop()
+			Row.Big_lamp_enable(false)
 	else:
-		Rows_status[Row].start = Row.is_press
-		Row.Big_lamp_enable(true)
-		await get_tree().create_timer(1).timeout
+		Row.timer.stop()
 		Row.Big_lamp_enable(false)
-		#Row.press()
-			
-	print(Rows_status[Row])
-		
+
 func check_valid(Row):
 	var have_do = false
 	var cubes = []
@@ -110,65 +103,52 @@ func check_valid(Row):
 					return busy_pos_list[cube][1]
 				have_do = true
 	cubes = cubes.filter(func(a): return a != null)
-	if cubes.is_empty() or not have_do: return -1
-	print(cubes)
+	if len(cubes) < 3 or not have_do: return -1
 	var i = 0
-	while i > 0:
-		match cubes[i].type:
-			"MONITOR":
-				var test = cubes.get(i+1)
-				if test != null:
-					if test.type not in ["COMPARE", "LOGIC", "DO"]:
+	while i < len(cubes)-1:
+		var next_cube = cubes.get(i+1)
+		print(next_cube)
+		if cubes[i].type in ["MONITOR", "BUTTON"]:
+			if next_cube:
+				if next_cube.type == "COMPARE":
+					if next_cube.get_value() == "x":
 						return i
-					if test.type == "COMPARE":
-						if test.get_value() == "x":
-							return i
-			"DIGIT":
-				var test = cubes.get(i+1)
-				if test != null:
-					if test.type not in ["DIGIT", "COMPARE", "LOGIC", "DO"]:
-						return i
-					if test.type == "COMPARE":
-						if test.get_value() == "x":
-							return i
-			"BUTTON":
-				var test = cubes.get(i+1)
-				if test != null:
-					if test.type not in ["COMPARE", "LOGIC", "DO"]:
-						return i
-					if test.type == "COMPARE":
-						if test.get_value() == "x":
-							return i
-			"COMPARE":
-				var test = cubes.get(i+1)
-				if test != null:
-					if test.type not in ["MONITOR", "DIGIT", "BUTTON"]:
-						return i
-				else:
+				if next_cube.type not in ["COMPARE", "LOGIC", "DO"]:
 					return i
-			"LOGIC":
-				var test = cubes.get(i+1)
-				if test != null:
-					if test.type not in ["MONITOR", "DIGIT", "BUTTON"]:
-						return i
-				else:
+		if cubes[i].type == "DIGIT":
+			if next_cube:
+				if next_cube.type == "COMPARE":
+					if next_cube.get_value() == "x":
+						return i		
+				if next_cube.type not in ["DIGIT", "COMPARE", "LOGIC", "DO"]:
 					return i
-			"DO":
-				var test = cubes.get(i+1)
-				if test != null:
-					if test.type not in ["MONITOR", "BUTTON"]:
+
+		if cubes[i].type in ["COMPARE", "LOGIC"]:
+			if next_cube:
+				if not next_cube: return i
+				if next_cube.type == "COMPARE":
+					if next_cube.get_value() != "x":
 						return i
-				else:
-					return i
+				if next_cube.type not in ["MONITOR", "DIGIT", "BUTTON"]: return i
+				print_debug(next_cube)
+		if cubes[i].type == "DO":
+			if next_cube:
+				if not next_cube: return i
+				if next_cube.type == "COMPARE":
+					if next_cube.get_value() != "x":
+						return i
+				if next_cube.type not in ["BUTTON"]: return i
+
 	Rows_status[Row].cubes = cubes
 	return 0 # Проверка прошла успешно и без ошибок
-	#cubes.sort_custom(func(a, b): return a[1][1] < b[1][1])
-	#cubes = cubes.map(func(a): return a[0])
 
 func play(Row):
+	if not Row.is_press:
+		Row.timer.stop()
+		Row.Big_lamp_enable(false)
+		return
+	Row.timer.start()
 	var cubes = Rows_status[Row].cubes
-	var left_side = []
-	var rigth_side = []
 	var analys = []
 	var have_do = false
 	var i = 0
@@ -178,33 +158,28 @@ func play(Row):
 			"DIGIT":
 				var summ = ""
 				while i < len(cubes):
-					print(cubes[i].type)
 					if cubes[i].type == "DIGIT":
 						summ += str(cubes[i].get_value())
 						i += 1
 					else:
-						i -= 1 # 
+						i -= 1 # первым проверяться сам куб его индекс считаться в конце
 						break
 				analys.append(int(summ))
 			"BUTTON":
 				if have_do:
-					analys.append(cubes[i].get_value(true)) # obj
+					var btn = cubes[i].get_value(true)
+					if btn == null: return i
+					analys.append(btn) # obj кнопка
 				else:
-					var btn_cube = cubes[i].get_value(false) # is_pressed
-					if btn_cube:
-						analys.append(btn_cube)
-					else:
-						return i
+					analys.append(cubes[i].get_value(false)) # флаг is_pressed
 			"COMPARE":
 				var value = cubes[i].get_value()
 				if value == "x":
 					var b = cubes.get(i+1)
-					if b == null:
-						return i
+					if b == null: return i
 					b = b.get_value()
-					if typeof(b) not in [TYPE_INT, TYPE_FLOAT, TYPE_BOOL]:
-						return i
-					analys.append(not b)
+					if typeof(b) not in [TYPE_INT, TYPE_FLOAT, TYPE_BOOL]: return i
+					analys.append(not bool(b))
 				else:
 					var a = analys.get(i-1)
 					var b = cubes.get(i+1)
@@ -216,6 +191,8 @@ func play(Row):
 						if typeof(n) not in [TYPE_INT, TYPE_FLOAT, TYPE_BOOL]:
 							return i
 					analys.remove_at(i-1)
+					a = float(a)
+					b = float(b)
 					match value:
 						">": analys.append(a > b)
 						"=": analys.append(a == b)
@@ -225,14 +202,13 @@ func play(Row):
 			"LOGIC":
 				var a = analys.get(i-1)
 				var b = cubes.get(i+1)
-				for n in [a, b]:
-					if n == null:
-						return i
+				if null in [a, b]: return i
 				b = b.get_value()
 				for n in [a, b]:
-					if typeof(n) not in [TYPE_INT, TYPE_FLOAT, TYPE_BOOL]:
-						return i
+					if typeof(n) not in [TYPE_INT, TYPE_FLOAT, TYPE_BOOL]: return i
 				analys.remove_at(i-1)
+				a = bool(a)
+				b = bool(b)
 				match cubes[i].get_value():
 					"OR": analys.append(a or b)
 					"AND": analys.append(a and b)
@@ -241,16 +217,13 @@ func play(Row):
 			"DO":
 				if i == 0: return i
 				var a = analys.pop_back()
-				if a != true: return i
+				if bool(a) != true: return i
 				have_do = true
 				analys.append("do")
 		i += 1
 	
 	print(analys) # good result == [true, "do", Button]
-	$Timer.timeout.connect(_on_timer_timeout.bind(Row), CONNECT_ONE_SHOT)
 	return true
 
-func _on_timer_timeout(Row) -> void:
-	if Rows_status[Row].start:
-		Row.Big_lamp_enable(true if play(Row) else false)
-		$Timer.start().bind(Row)
+func change_row(cube):
+	pass

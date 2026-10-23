@@ -7,6 +7,7 @@ func _ready() -> void:
 	type = "COMPARE"
 
 func interact_alt():
+	me_touch.emit()
 	value = (value + 1) % 4
 	_apply_pose(value)
 

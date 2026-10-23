@@ -10,6 +10,8 @@ var look_me = true
 var is_drag = false
 var in_automate = false
 
+signal me_touch
+
 func _ready() -> void:
 	Level = get_parent()
 	Room = Level.get_parent()
@@ -21,6 +23,7 @@ func _physics_process(delta: float) -> void:
 		drag(delta)
 
 var full_drag = false
+
 func drag(delta):
 	var marker = Room.Player.marker
 	var dis = marker.global_position - global_position
@@ -38,6 +41,8 @@ func drag(delta):
 		global_rotation.z = marker.global_rotation.z
 		
 func hold(is_hold):
+	if in_automate:
+		me_touch.emit()
 	freeze = is_hold
 	is_drag = is_hold
 	full_drag = false

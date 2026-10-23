@@ -9,6 +9,7 @@ func _ready() -> void:
 	$Digit.mesh = $Digit.mesh.duplicate()
 
 func interact_alt() -> void:
+	me_touch.emit()
 	value = (value + 1) % 10
 	$Digit.mesh.text = str(value)
 

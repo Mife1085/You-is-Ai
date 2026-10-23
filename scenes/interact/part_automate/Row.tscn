@@ -106,3 +106,9 @@ mesh = SubResource("SphereMesh_brn24")
 [node name="Big_lamp" type="MeshInstance3D" parent="." unique_id=1188053032]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 5.75, 0.5999999, 0.49999994)
 mesh = SubResource("SphereMesh_nl6b4")
+
+[node name="Timer" type="Timer" parent="." unique_id=1991144600]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

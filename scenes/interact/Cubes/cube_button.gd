@@ -32,6 +32,7 @@ func setup(button_list):
 		side.mesh.material.emission_energy_multiplier = 10
 
 func interact_alt():
+	me_touch.emit()
 	color_side.append(color_side.pop_front())
 	for i in range(6):
 		var side = get_child(i)
